@@ -1,4 +1,5 @@
-find_package(gtest REQUIRED)
+find_package(GTest REQUIRED)
+include(GoogleTest)
 
 add_executable(group_project_test main.cpp)
 
@@ -7,4 +8,4 @@ target_link_libraries(group_project_test PRIVATE
  # Group_project library
 )
 
-add_test(gtest group_project_test)
+gtest_discover_tests(group_project_test)

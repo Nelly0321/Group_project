@@ -3,9 +3,9 @@ find_package(Qt5 COMPONENTS Core)
 find_package(Qt5 COMPONENTS Gui)
 find_package(Qt5 COMPONENTS Widgets)
 
-add_executable(main main.cpp)
+add_executable(group_project main.cpp)
 
-target_link_libraries(main PRIVATE
+target_link_libraries(group_project PRIVATE
  opencv_core
  opencv_objdetect
  opencv_video

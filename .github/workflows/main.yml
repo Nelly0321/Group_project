@@ -19,11 +19,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
         include:
-          - os: windows-latest
-            triplet: x64-windows-release
-            build-type: Release
+          # no disk space for windows/linux. 
+          # disabling until workaround solution
+          #- os: windows-latest
+          #  triplet: x64-windows-release
+          #  build-type: Release
           - os: ubuntu-latest
             triplet: x64-linux-release
             build-type: Release
@@ -34,6 +36,13 @@ jobs:
     steps:
       - name: Install Dependencies (Linux)
         run: sudo apt install libx11-dev libgles2-mesa-dev libdbus-1-dev libxi-dev libxtst-dev libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev gperf libfontconfig1-dev libfreetype6-dev libx11-xcb-dev libxext-dev libxfixes-dev libxrender-dev libxcb1-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-xinerama0-dev libxcb-render-util0-dev libxkbcommon-dev libxkbcommon-x11-dev libxft-dev libgl1-mesa-dev libglu1-mesa-dev autoconf-archive linux-headers-$(uname -r)
+        if: matrix.os == 'ubuntu-latest'
+      # workaround hack to free up space https://github.com/actions/runner-images/issues/2606#issuecomment-772683150
+      - name: Free up space (Linux) remove android
+        run: sudo rm -rf /usr/local/lib/android # will release about 10 GB if you don't need Android
+        if: matrix.os == 'ubuntu-latest'
+      - name: Free up space (Linux) remove .NET
+        run: sudo rm -rf /usr/share/dotnet # will release about 20GB if you don't need .NET
         if: matrix.os == 'ubuntu-latest'
       - name: Install Dependencies (macOS)
         run: brew install autoconf automake libtool autoconf-archive

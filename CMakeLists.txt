@@ -13,5 +13,13 @@ if(EXISTS "${VSPKG_JSON_PATH}")
     include("${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
+find_program(CMAKE_CXX_CLANG_TIDY_EXECUTABLE NAMES clang-tidy)
+if (NOT CMAKE_CXX_CLANG_TIDY_EXECUTABLE)
+  message("clang-tidy not found")
+else()
+  message("clang-tidy found")
+  set(CMAKE_CXX_CLANG_TIDY ${CMAKE_CXX_CLANG_TIDY_EXECUTABLE})
+endif()
+
 add_subdirectory(src)
 add_subdirectory(test)

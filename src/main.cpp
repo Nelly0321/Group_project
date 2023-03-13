@@ -4,6 +4,9 @@
 
 using namespace cv;
 
+constexpr int WaitTime{10};
+constexpr int QASCIICode{113};
+
 int main(int argc, const char **argv)
 {
     // VideoCapture class for playing video for which faces to be detected
@@ -20,14 +23,17 @@ int main(int argc, const char **argv)
         {
             capture >> frame;
             if (frame.empty())
+            {
                 break;
+            }
             Mat frame1 = frame.clone();
             imshow("random name", frame);
-            char c = (char)waitKey(10);
 
             // Press q to exit from window
-            if (c == 27 || c == 'q' || c == 'Q')
+            if (waitKey(WaitTime) == QASCIICode) 
+            {
                 break;
+            }
         }
     }
     else

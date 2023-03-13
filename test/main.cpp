@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+// supress gtest warnings https://github.com/google/googletest/issues/2442
+// NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
 TEST(GroupProject, DummyTest)
 {
     auto dummyVal1 = 0;
@@ -7,6 +9,8 @@ TEST(GroupProject, DummyTest)
     EXPECT_EQ(dummyVal1, dummyVal2);
 }
 
+
+// NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
